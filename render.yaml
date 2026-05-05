@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: streamvault
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+    staticPublishPath: ../frontend

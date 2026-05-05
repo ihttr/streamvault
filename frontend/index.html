@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StreamVault — بث مباشر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="screen active">
+  <div class="login-bg">
+    <div class="grid-lines"></div>
+  </div>
+  <div class="login-box">
+    <div class="brand">
+      <span class="brand-icon">▶</span>
+      <span class="brand-name">StreamVault</span>
+    </div>
+    <p class="login-sub">أدخل بيانات سيرفر Xtream الخاص بك</p>
+    <div class="form-group">
+      <label>رابط السيرفر</label>
+      <input id="loginServer" type="text" placeholder="http://server.com:8080" />
+    </div>
+    <div class="form-group">
+      <label>اسم المستخدم</label>
+      <input id="loginUser" type="text" placeholder="username" />
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <input id="loginPass" type="password" placeholder="••••••••" />
+    </div>
+    <button class="btn-login" onclick="doLogin()">
+      <span id="loginBtnText">دخول</span>
+    </button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appScreen" class="screen">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">▶</span>
+      <span>StreamVault</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="live" onclick="switchTab('live', this)">
+        <span class="nav-icon">📡</span> بث مباشر
+      </button>
+      <button class="nav-item" data-tab="movies" onclick="switchTab('movies', this)">
+        <span class="nav-icon">🎬</span> أفلام
+      </button>
+    </nav>
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="بحث..." oninput="filterChannels(this.value)" />
+    </div>
+    <div class="sidebar-cats" id="categoryList"></div>
+    <div class="sidebar-footer">
+      <div class="account-info" id="accountInfo"></div>
+      <button class="btn-logout" onclick="doLogout()">خروج</button>
+    </div>
+  </aside>
+
+  <!-- Channel List -->
+  <div class="channel-panel">
+    <div class="channel-panel-header">
+      <span id="panelTitle">القنوات</span>
+      <span class="channel-count" id="channelCount"></span>
+    </div>
+    <div class="channel-list" id="channelList"></div>
+  </div>
+
+  <!-- Player Area -->
+  <main class="player-panel">
+    <div class="video-container">
+      <video id="videoPlayer" controls></video>
+      <div class="player-overlay" id="playerOverlay">
+        <div class="overlay-content">
+          <div class="play-big">▶</div>
+          <p>اختر قناة للبدء</p>
+        </div>
+      </div>
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+      </div>
+    </div>
+    <div class="now-playing" id="nowPlaying">
+      <div class="np-logo" id="npLogo"></div>
+      <div class="np-info">
+        <div class="np-name" id="npName">—</div>
+        <div class="np-status" id="npStatus">غير نشط</div>
+      </div>
+      <div class="np-badge live-badge" id="liveBadge" style="display:none">LIVE</div>
+    </div>
+    <div class="error-bar" id="errorBar"></div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+<script src="player.js"></script>
+</body>
+</html>
